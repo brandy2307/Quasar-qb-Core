@@ -9,16 +9,9 @@ end)
 
 AddEventHandler('playerDropped', function(reason)
     local src = source
-    local ped = GetPlayerPed(src)
-    local armor = GetPedArmour(ped)
-    local health = GetEntityHealth(ped)
-
     if not QBCore.Players[src] then return end
     local Player = QBCore.Players[src]
     TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Dropped', 'red', '**' .. GetPlayerName(src) .. '** (' .. Player.PlayerData.license .. ') left..' .. '\n **Reason:** ' .. reason)
-    Player.Functions.SetMetaData('health', health)
-    Player.Functions.SetMetaData('armor', armor)
-    Player.Functions.Save()
     TriggerEvent('QBCore:Server:PlayerDropped', Player)
     Player.Functions.Save()
     QBCore.Player_Buckets[Player.PlayerData.license] = nil
@@ -39,7 +32,7 @@ local databaseConnected, bansTableExists = readyFunction == nil, readyFunction =
 if readyFunction ~= nil then
     MySQL.ready(function()
         databaseConnected = true
-
+    
         local DatabaseInfo = QBCore.Functions.GetDatabaseInfo()
         if not DatabaseInfo or not DatabaseInfo.exists then return end
 

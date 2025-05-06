@@ -24,8 +24,7 @@ function QBCore.Player.Login(source, citizenid, newData)
                 TriggerEvent('qb-log:server:CreateLog', 'anticheat', 'Anti-Cheat', 'white', GetPlayerName(source) .. ' Has Been Dropped For Character Joining Exploit', false)
             end
         else
-            local required = QBCore.Player.CheckPlayerData(source, newData)
-            TriggerEvent('wais:sendNewCharacterData', required.source, required.cid, required.citizenid)
+            QBCore.Player.CheckPlayerData(source, newData)
         end
         return true
     else
@@ -254,11 +253,6 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         return QBCore.Functions.HasItem(self.PlayerData.source, items, amount)
     end
 
-    function self.Functions.GetName()
-        local charinfo = self.PlayerData.charinfo
-        return charinfo.firstname .. ' ' .. charinfo.lastname
-    end
-
     function self.Functions.SetJobDuty(onDuty)
         self.PlayerData.job.onduty = not not onDuty
         TriggerEvent('QBCore:Server:OnJobUpdate', self.PlayerData.source, self.PlayerData.job)
@@ -423,11 +417,6 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
         TriggerEvent('QBCore:Server:PlayerLoaded', self)
         self.Functions.UpdatePlayerData()
     end
-    return Offline and self or {
-        source = PlayerData.source,
-        cid = PlayerData.cid,
-        citizenid = PlayerData.citizenid
-    }
 end
 
 -- Add a new function to the Functions table of the player class

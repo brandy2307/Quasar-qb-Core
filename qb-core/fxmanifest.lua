@@ -16,8 +16,7 @@ shared_scripts {
     'shared/vehicles.lua',
     'shared/gangs.lua',
     'shared/weapons.lua',
-    'shared/locations.lua',
-    'fixDeleteVehicle.lua'
+    'shared/locations.lua'
 }
 
 client_scripts {
@@ -47,7 +46,5 @@ files {
     'html/css/drawtext.css',
     'html/js/*.js'
 }
-
-shared_script "fixDeleteVehicle.lua"
 
 dependency 'oxmysql'
